@@ -1,0 +1,6 @@
+[submodule "live"]
+	path = live
+	url = https://github.com/bodnarmarian14/gcp-infra-projects.git
+[submodule "modules"]
+	path = modules
+	url = https://github.com/bodnarmarian14/gcp-tf-modules.git
