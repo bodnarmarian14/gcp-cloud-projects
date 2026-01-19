@@ -12,8 +12,7 @@ ARG USER_GID=$USER_UID
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
        ca-certificates curl git unzip vim sudo gnupg python3 python3-pip python3-venv \
-       zsh \
-       fonts-powerline \
+       zsh openssh-client fonts-powerline \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 3. Create User & Set Shell to Zsh
