@@ -1,0 +1,35 @@
+{
+  "name": "Ubuntu Infrastructure Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "4ops.terraform",
+        "ms-python.python"
+      ],
+      "settings": {
+        "terraform.languageServer.enable": true,
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        // Force VS Code to use Zsh
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+  // FIXED COMMAND:
+  // 1. Uses /bin/zsh explicitly.
+  // 2. Runs 'safe.directory' to fix git errors.
+  "postCreateCommand": "/bin/zsh -c 'git config --global --add safe.directory \"*\" && git submodule update --init --recursive && terraform --version'",
+  // MOUNTS:
+  // Maps your local Zsh configs into the container.
+  // Warning: If your .zshrc references macOS-specific paths, it might show errors.
+  "mounts": [
+    "source=${localEnv:HOME}/.config/gcloud,target=/home/vscode/.config/gcloud,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.zshrc,target=/home/vscode/.zshrc,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.p10k.zsh,target=/home/vscode/.p10k.zsh,type=bind,consistency=cached"
+  ]
+}
