@@ -1,0 +1,25 @@
+
+repos:
+  # =======================================================
+  # 1. BASIC FILE HYGIENE (Fixes formatting, Checks Syntax)
+  # =======================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace        # Trims extra spaces at end of lines
+      - id: end-of-file-fixer          # Ensures files end with a newline
+      - id: check-yaml                 # Validates .yaml files (Crucial for CI/CD)
+      - id: check-json                 # Validates .json (Crucial for devcontainer.json)
+        exclude: ^\.devcontainer/devcontainer\.json$
+      - id: check-added-large-files    # Prevents accidental commit of huge binaries
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict       # Stops you from committing <<<<<< HEAD markers
+      - id: check-case-conflict        # Prevents issues between Windows/Linux filenames
+
+  # =======================================================
+  # 2. SECURITY (Catch Secrets before they leave your laptop)
+  # =======================================================
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2
+    hooks:
+      - id: gitleaks

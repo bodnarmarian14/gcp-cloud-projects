@@ -15,16 +15,11 @@
       "settings": {
         "terraform.languageServer.enable": true,
         "python.defaultInterpreterPath": "/usr/bin/python3",
-        // Force VS Code to use Zsh
         "terminal.integrated.defaultProfile.linux": "zsh"
       }
     }
   },
-  // FIXED COMMAND:
-  // 1. Uses /bin/zsh explicitly.
-  // 2. Runs 'safe.directory' to fix git errors.
-  "postCreateCommand": "/bin/zsh -c 'git config --global --add safe.directory \"*\" && git submodule update --init --recursive && terraform --version'",
-  // MOUNTS:
+  "postCreateCommand": "git config --global --add safe.directory \"*\" && git submodule update --init --recursive && pre-commit install && cd modules && pre-commit install",  // MOUNTS:
   // Maps your local Zsh configs into the container.
   // Warning: If your .zshrc references macOS-specific paths, it might show errors.
   "mounts": [
